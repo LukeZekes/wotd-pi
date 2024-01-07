@@ -1,4 +1,0 @@
-// Create a graphical display that shows the word of the day
-//    Get word of the day from Dictionary.com using web scraping
-//    Create an image displaying the word of the day (start with a base image then draw text over it)
-//    Display image in a window

@@ -1,13 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
-from datetime import date
+from datetime import date, datetime
 from string import Template
 from bs4 import BeautifulSoup
 import requests
 import regex as re
 import os
 
+LOG_FILE = "./log.txt"
 class WOTDDisplay(Tk):
   TIME_TO_UPDATE = 60000
   def __init__(self):
@@ -141,6 +142,15 @@ class WOTDDisplay(Tk):
     result["definition"] = definition
     return result
 
-os.environ["DISPLAY"] = ":0"
-window_root = WOTDDisplay()
-window_root.mainloop()
+try:
+  os.environ["DISPLAY"] = ":0"
+  window_root = WOTDDisplay()
+  window_root.mainloop()
+except BaseException as e: # Catch errors and write to log.txt
+  now = datetime.now()
+  f = open(LOG_FILE, "a")
+  f.write('--------------------\n')
+  f.write(" ".join(["Exception occurred on", now.strftime("%B %d %Y"), "at" + now.strftime("%H:%M:%S"), "\n"]))
+  for a in e.args:
+    f.write(" ".join([a, "\n"]))
+  f.close()

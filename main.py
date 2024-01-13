@@ -6,14 +6,15 @@ from string import Template
 from bs4 import BeautifulSoup
 import requests
 import regex as re
+import os
 
 class WOTDDisplay(Tk):
   TIME_TO_UPDATE = 60000
   def __init__(self):
     Tk.__init__(self)
-    # self.attributes("-fullscreen", 1)
+    self.attributes("-fullscreen", 1)
     # self.overrideredirect(True)
-    self.geometry("638x377+0+0")
+    # self.geometry("638x377+0+0")
 
     # Text variables
     self.date_text = StringVar()
@@ -140,5 +141,6 @@ class WOTDDisplay(Tk):
     result["definition"] = definition
     return result
 
+os.environ["DISPLAY"] = ":0"
 window_root = WOTDDisplay()
 window_root.mainloop()

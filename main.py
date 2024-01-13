@@ -150,7 +150,7 @@ except BaseException as e: # Catch errors and write to log.txt
   now = datetime.now()
   f = open(LOG_FILE, "a")
   f.write('--------------------\n')
-  f.write(" ".join(["Exception occurred on", now.strftime("%B %d %Y"), "at" + now.strftime("%H:%M:%S"), "\n"]))
+  f.write(" ".join(["Exception occurred on", now.strftime("%B %d %Y"), "at", now.strftime("%H:%M:%S"), "\n"]))
   for a in e.args:
     f.write(" ".join([a, "\n"]))
   f.close()

@@ -9,6 +9,13 @@ import regex as re
 import os
 
 LOG_FILE = "./log.txt"
+def log(data):
+  f = open(LOG_FILE, 'a')
+  f.write('--------------------\n')
+  f.write(datetime.now().strftime("%B %d %Y %H:%M:%S") + ": ")
+  f.write(str(data))
+  f.write("\n")
+  f.close()
 class WOTDDisplay(Tk):
   TIME_TO_UPDATE = 60000
   def __init__(self):
@@ -147,10 +154,6 @@ try:
   window_root = WOTDDisplay()
   window_root.mainloop()
 except BaseException as e: # Catch errors and write to log.txt
-  now = datetime.now()
-  f = open(LOG_FILE, "a")
-  f.write('--------------------\n')
-  f.write(" ".join([type(e).__name__, "occurred on", now.strftime("%B %d %Y"), "at", now.strftime("%H:%M:%S"), "\n"]))
+  log(type(e).__name__)
   for a in e.args:
-    f.write(" ".join([a, "\n"]))
-  f.close()
+    log(" ".join([a, "\n"]))

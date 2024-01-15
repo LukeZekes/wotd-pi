@@ -44,7 +44,7 @@ class WOTDDisplay(Tk):
     self.rowconfigure(0, weight=1)
 
     mainframe_style = ttk.Style()
-    mainframe_style.configure("Main.TFrame", background="white")
+    mainframe_style.configure("Main.TFrame", background="red")
 
     mainframe = ttk.Frame(self, style="Main.TFrame")
     mainframe.grid(column=0, row=0, sticky=(N, S, E, W))

@@ -162,3 +162,4 @@ cython_debug/
 log.txt
 launch_err.txt
 launch_out.txt
+py_err.txt

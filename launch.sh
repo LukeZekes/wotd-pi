@@ -6,7 +6,7 @@ while true; do
   if [[ $PING_OUT == *"1 packets transmitted, 1 received"* ]]; then
     cd -- $REPO_DIR
     git pull > launch_out.txt 2> launch_err.txt
-    python main.py
+    python main.py 2> py_err.txt
     break;
   else
     sleep 1

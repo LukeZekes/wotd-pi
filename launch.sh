@@ -9,4 +9,4 @@ while true; do
   else
     sleep 1
   fi
-break
+done

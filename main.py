@@ -17,7 +17,7 @@ def log(data):
   f.write("\n")
   f.close()
 class WOTDDisplay(Tk):
-  TIME_TO_UPDATE = 60000
+  TIME_TO_UPDATE = 360000
   def __init__(self):
     Tk.__init__(self)
     self.attributes("-fullscreen", 1)
@@ -30,7 +30,8 @@ class WOTDDisplay(Tk):
     self.pron_text = StringVar()
     self.def_text = StringVar()
 
-    self.last_day_updated = date.today() # If date.today() > self.last_day_updated, it is the next day and the display should be updated 
+    self.last_day_updated = date.today() # If date.today() > self.last_day_updated, it is the next day and the display should be updated
+    self.wotd_updated_today = False
     self.update(first_update=True)
     # Create fonts
     date_font = Font(family="Cambria", size=12)
@@ -88,17 +89,23 @@ class WOTDDisplay(Tk):
   # Fetch data from dictionary.com and update the display
   def update(self, first_update = False):
     # Check if it is a different day that the last time the display was updated
+    # Date and word must be updated separately, since the dictionary.com word of the day doesn't change until some time after midnight EST
     current_date = date.today()
     if (first_update or self.last_day_updated < current_date):
-      print("Fetching data from dictionary.com...")
-      data = self.get_word_of_the_day()
-      print(data)
+      log("Updating date")
       self.last_day_updated = current_date
       self.date_text.set(current_date.strftime('%D'))
-      self.wotd_text.set(data["word"])
-      self.pron_text.set(data["pronounciation"])
-      self.def_text.set(Template('$POS: $DEFINITION').safe_substitute(POS=data["pos"], DEFINITION=data["definition"]))
+      self.wotd_updated_today = False
+      
 
+    if (first_update or not self.wotd_updated_today):
+      data = self.get_word_of_the_day()
+      if data["word"] != self.wotd_text.get():
+        log("WotD has changed on dictionary.com - updating text")
+        self.wotd_text.set(data["word"])
+        self.pron_text.set(data["pronounciation"])
+        self.def_text.set(Template('$POS: $DEFINITION').safe_substitute(POS=data["pos"], DEFINITION=data["definition"]))
+        self.wotd_updated_today = True
 
     self.after(self.TIME_TO_UPDATE, self.update)
 
@@ -113,6 +120,7 @@ class WOTDDisplay(Tk):
     }
   '''
   def get_word_of_the_day(self):
+    log("Fetching data from dictionary.com")
     result = {
     "word": "",
     "pronounciation": "",
@@ -147,6 +155,7 @@ class WOTDDisplay(Tk):
     # Definition
     definition = pos_div.contents[3].get_text(strip=True)
     result["definition"] = definition
+    log(result)
     return result
 
 try:

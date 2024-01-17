@@ -75,7 +75,7 @@ class WOTDDisplay(Tk):
     date_style.configure("Date.TLabel", background="white")
 
     date_label = ttk.Label(mainframe, textvariable=self.date_text, font=date_font, style="Date.TLabel")
-    date_label.grid(column=0, row=0, sticky=(N, W), padx=(5, 0))
+    date_label.grid(column=0, row=0, sticky=(N, W), padx=(10, 10))
 
     wotd_label = ttk.Label(centerframe, textvariable=self.wotd_text, font=wotd_font, style="Label.TLabel")
     wotd_label.grid(column=0, row=1)

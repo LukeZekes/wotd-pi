@@ -34,7 +34,7 @@ class WOTDDisplay(Tk):
     self.wotd_updated_today = False
     self.update(first_update=True)
     # Create fonts
-    date_font = Font(family="Cambria", size=12)
+    date_font = Font(family="Cambria", size=16)
     wotd_font = Font(family="Times New Roman", size=48, weight="bold")
     pron_font = Font(family="Cambria", size=24, slant="italic")
     def_font = Font(family="Cambria", size=16)
